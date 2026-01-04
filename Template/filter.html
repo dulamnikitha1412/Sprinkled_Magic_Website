@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+    <div class="container">
+        <div class="row">
+        <!-- <div class="justify-content center"> -->
+        {% if data2 %}
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'all' %}" class="btn btn-warning text-decoration-none text-white">←Back</a>
+            <div class="card" style="width: 18rem;">
+            <a href="{{data2.Link}}">
+            <img src="{{data2.Image.url}}" class="card-img-top" alt="image" width="100px" height="150px"></a>
+            <div class="card-body">
+                <h5 class="card-title">{{data2.Name}}</h5>
+                <h3 class="card sub-title">{{data2.Items}}</h3>
+                <p class="card-text">₹{{data2.Price}}</p>
+                <a href="{% url 'up' data2.id %}" class="btn btn-success text-decoration-none text-white">📝</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <a href="{% url 'del' data2.id %}" class="btn btn-danger text-decoration-none text-white">🗑️</a>
+                <form method="POST" action="{% url 'add_to_cart' data2.id %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-2" style="width: 150px;">
+                        <button type="button" onclick="decreaseQuantity('{{ item.id }}')">-</button>
+                        <input type="number" name="quantity" id="quantity-{{ item.id }}" value="1" min="1" class="form-control text-center">
+                        <button type="button" onclick="increaseQuantity('{{ item.id }}')">+</button>
+                        <button type="submit" class="btn btn-success ms-2">🛒</button>
+                    </div>
+                </form>
+
+                <script>
+                function increaseQuantity(id) {
+                    var input = document.getElementById('quantity-' + id);
+                    input.value = parseInt(input.value) + 1;
+                }
+                function decreaseQuantity(id) {
+                    var input = document.getElementById('quantity-' + id);
+                    if (parseInt(input.value) > 1) {
+                        input.value = parseInt(input.value) - 1;
+                    }
+                }
+                </script>
+
+            </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!-- </div> -->
+
+{% endblock content %}

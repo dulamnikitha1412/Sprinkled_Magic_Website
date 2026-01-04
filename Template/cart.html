@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Your Cart</h2>
+
+{% if cart_items %}
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td><img src="{{ item.image }}" alt="{{ item.name }}" width="100"></td>
+                <td>{{ item.name }}</td>
+                <td>₹{{ item.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.subtotal }}</td>
+                <td>
+                    <form method="POST" action="{% url 'update_cart' item.id %}">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 60px;">
+                        <button type="submit" class="btn btn-success">📝</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'delete_cart' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">x</button>
+                    </form>
+                </td>
+               
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Total: ₹{{ total }}</h3>
+
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+ <form method="POST" action="{% url 'proceed_to_pay' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Proceed to Pay</button>
+</form>
+</div>
+
+{% else %}
+    <p>Your cart is empty.</p>
+    <a href="{% url 'base' %}"><button>Continue Shopping</button></a>
+{% endif %}
+
+{% endblock %}

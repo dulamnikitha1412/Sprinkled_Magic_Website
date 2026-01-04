@@ -1,0 +1,17 @@
+<h2>Search Results for "{{ query }}"</h2>
+
+
+{% if results %}
+    <ul>
+    {% for item in results %}
+        <li>
+            {{ item.Name }} - 
+            {% if item.Items %} {{ item.Items }} {% else %} No item type {% endif %} - 
+            ₹{{ item.Price }} <br>
+            <img src="{{ item.Image.url }}" alt="{{ item.Name }}" height="100">
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
