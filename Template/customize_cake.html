@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize A Cake - Sprinkled Magic</title>
+
+    <style>
+
+        body{
+            margin:0;
+            padding:0;
+            font-family: Arial, sans-serif;
+            background:#fff8f5;
+        }
+
+        .cake-container{
+            max-width:900px;
+            margin:50px auto;
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .title{
+            text-align:center;
+            color:#d1006f;
+            font-size:40px;
+            margin-bottom:30px;
+        }
+
+        .cake-form input,
+        .cake-form select,
+        .cake-form textarea{
+            width:100%;
+            padding:15px;
+            margin-bottom:20px;
+            border:1px solid #ccc;
+            border-radius:10px;
+            font-size:16px;
+        }
+
+        .cake-form label{
+            font-weight:bold;
+            color:#444;
+        }
+
+        .cake-form button{
+            background:#d1006f;
+            color:white;
+            border:none;
+            padding:15px 30px;
+            border-radius:10px;
+            font-size:18px;
+            cursor:pointer;
+        }
+
+        .cake-form button:hover{
+            background:#a80058;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="cake-container">
+
+    <h1 class="title">Customize Your Cake 🎂</h1>
+
+    <form class="cake-form">
+
+        <label>Your Name</label>
+        <input type="text" placeholder="Enter your name">
+
+        <label>Phone Number</label>
+        <input type="text" placeholder="Enter phone number">
+
+        <label>Cake Flavor</label>
+        <select>
+            <option>Chocolate</option>
+            <option>Vanilla</option>
+            <option>Black Forest</option>
+            <option>Red Velvet</option>
+            <option>Butterscotch</option>
+            <option>Pineapple</option>
+        </select>
+
+        <label>Cake Size</label>
+        <select>
+            <option>0.5 KG</option>
+            <option>1 KG</option>
+            <option>2 KG</option>
+            <option>3 KG</option>
+        </select>
+
+        <label>Message On Cake</label>
+        <input type="text" placeholder="Happy Birthday...">
+
+        <label>Special Instructions</label>
+        <textarea rows="5" placeholder="Describe your custom design"></textarea>
+
+        <button type="submit">Place Custom Order</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

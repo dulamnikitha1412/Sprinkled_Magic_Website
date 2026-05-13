@@ -1,36 +1,176 @@
 {% extends 'base.html' %}
-{% block content %}
+<!-- {% block content %} -->
 
-    <style>
-        h1{
-            background:linear-gradient(#ffe4e1,#2c3e50,#e91e63);
-            color:transparent;
-            -webkit-background-clip: text;
-        }
-    </style>
-    <div class="container">
-        <div class="jumbotron mt-4">
-            <h1 class="text-center">Munch & Melt</h1>
+<style>
+  .category-page {
+    padding: 40px 60px 60px;
+    background: #fafafa;
+    min-height: 60vh;
+  }
 
-    <div class="container">
-    <div class="row">
-      
-        {% for i in data6 %}
-        <div class="col-md-4 mb-4">
-            <div class="card" style="width: 18rem;">
-            <img src="{{i.Image.url}}" class="card-img-top" alt="image" width="100px" height="150px">
-            <div class="card-body">
-                <h5 class="card-title">{{i.Name}}</h5>
-                <h3 class="card sub-title">{{i.Items}}</h3>
-                <p class="card-text">₹{{i.Price}}</p>
-                <a href="{% url 'fil' i.id %}" class="btn btn-primary">Buy</a>
-            </div>
-            </div>
+  .cat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 18px;
+  }
+  .cat-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #222;
+    margin: 0;
+  }
+  .cat-header h2 span { color: #d6006f; }
+  .result-count {
+    font-size: 14px;
+    color: #777;
+    background: #f4f4f4;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 1100px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px)  { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .cat-grid { grid-template-columns: 1fr; } }
+
+  .p-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .p-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 28px rgba(214,0,111,0.15);
+  }
+
+  .p-card-img {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    display: block;
+    text-decoration: none;
+  }
+  .p-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s;
+  }
+  .p-card:hover .p-card-img img { transform: scale(1.06); }
+
+  .p-card-img .view-hint {
+    position: absolute;
+    inset: 0;
+    background: rgba(214,0,111,0.0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+  .p-card:hover .view-hint {
+    background: rgba(214,0,111,0.18);
+  }
+  .view-hint span {
+    background: white;
+    color: #d6006f;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+  .p-card:hover .view-hint span { opacity: 1; }
+
+  .p-card-body {
+    padding: 16px 18px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .p-card-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .p-card-body .p-type { font-size: 13px; color: #888; margin-bottom: 10px; }
+  .p-card-body .p-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #d6006f;
+    margin-bottom: 14px;
+  }
+
+  .no-results { text-align: center; padding: 80px 20px; }
+  .no-results h3 { font-size: 22px; color: #444; margin-bottom: 10px; }
+  .no-results p  { color: #888; font-size: 15px; }
+
+  @media (max-width: 600px) { .category-page { padding: 20px; } }
+</style>
+
+<div class="category-page">
+
+  <div class="cat-header">
+    <h2>
+      {% if category_name %}
+        <span>{{ category_name }}</span> Items
+      {% elif data6 %}
+        <span>{{ data6.0.Name }}</span> Items
+      {% else %}
+        Category
+      {% endif %}
+    </h2>
+    <span class="result-count">Showing {{ data6|length }} item{{ data6|length|pluralize }}</span>
+  </div>
+
+  {% if data6 %}
+    <div class="cat-grid">
+      {% for i in data6 %}
+      <div class="p-card">
+        <a class="p-card-img" href="{% url 'fil' i.id %}">
+          <img src="{{ i.Image.url }}" alt="{{ i.Items }}">
+          <div class="view-hint"><span><i class="bi bi-eye"></i> View Details</span></div>
+        </a>
+
+        <div class="p-card-body">
+          <h3>{{ i.Items }}</h3>
+          {% if i.Name %}<p class="p-type">{{ i.Name }}</p>{% endif %}
+          <p class="p-price">&#8377;{{ i.Price }}</p>
+
+
         </div>
-        {% endfor %}
+      </div>
+      {% endfor %}
     </div>
+
+  {% else %}
+    <div class="no-results">
+      <div style="font-size:60px;margin-bottom:16px;">🍰</div>
+      <h3>No items found in this category</h3>
+      <p>Check back soon — our bakers are working on it!</p>
+    </div>
+  {% endif %}
+
 </div>
 
-        
 
-{% endblock content %}
+
+<!-- {% endblock content %} -->

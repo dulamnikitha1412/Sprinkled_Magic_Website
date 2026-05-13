@@ -7,208 +7,716 @@
     <title>Sprinkled Magic</title>
     <link rel="icon" href="{% static 'images/icon.jpg' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     <style>
-    .top-bar {
-      background-color: #fff200;
+      *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        font-family: Arial, sans-serif;
+        background:#fff;
+    }
+
+    .top-left{
+      background:#d6006f;
       color: white;
       font-size: 0.9rem;
-    }
-    .navbar-main {
-      background-color: #fff8f0;
-      border-bottom: 1px solid #eee;
-    }
-    .navbar-brand {
-      font-weight: bold;
-      font-size: 1.6rem;
-      color: #d32f84 !important;
-    }
-    .nav-link {
-      color: #555 !important;
-    }
-    .nav-link:hover {
-      color: #48d32f !important;
-    }
-    .search-bar input {
-      border-radius: 20px 0 0 20px;
-      border-right: none;
-    }
-    .search-bar button {
-      border-radius: 0 20px 20px 0;
-    }
-  </style>
-</head>
-<body>
+      display:flex;
+      align-items:center;
+      gap:12px;
 
- 
- <div class="bg-danger text-white px-3 py-1 d-flex justify-content-between align-items-center" style="font-size: 0.9rem;">
-    <div>
-      📞 +91 81215 48682 &nbsp;|&nbsp; 📱 WhatsApp &nbsp;|&nbsp; 💌 Contact us
-    </div>
-  </div>
+    }
+
+    .top-line{
+      height:4px;
+      background:#d6006f;
+      width:100%;
+    }
+
+    .main-header{
+      background:white;
+      padding: 18px 60px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid #eee;
+      /* flex-wrap:wrap; */
+      gap:20px;
+    }
+
+    .logo-section{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:320px;
+    }
+
+    .logo-section img{
+      width:95px;
+      height:50px;
+      object-fit:cover;
+    }
+
+    .logo-text{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+    }
+
+    .logo-text h1{
+      margin:0;
+      /* padding:0; */
+      font-size:34px;
+      font-family:'Brush Script MT', cursive;
+      font-weight:400;
+      color:#d6006f;
+      line-height:1;
+    }
+
+    .logo-text p{
+      margin:0;
+      margin-top:3px;
+      font-size:14px;
+      color:#d6006f;
+      font-family:Arial, sans-serif;
+      font-weight:500;
+      letter-spacing:0.3px;
+    }
+
+    .search-box{
+      max-width:700px;
+      height:55px;
+      display:flex;
+      align-items:center;
+      border:1px solid #ddd;
+      border-radius:40px;
+      overflow:hidden;
+      background:white;
+      flex:1;
+  }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      padding:0 22px;
+      font-size:16px;
+    }
+
+    .search-box button{
+      width:48px;
+      height:48px;
+      min-width:48px;
+      border:none;
+      background:#d6006f;
+      color:white;
+      border-radius:50%;
+      margin-right:4px;
+      font-size:18px;
+    }
+
+    .cart-section{
+        min-width:50px;
+        display:flex;
+        justify-content:flex-end;
+    }
+
+    .cart-box{
+        position:relative;
+        color:#d6006f;
+        font-size:30px;
+        text-decoration:none;
+    }
+
+    .cart-count{
+        position:absolute;
+        top:-8px;
+        right:-10px;
+        background:#d6006f;
+        color:white;
+        width:18px;
+        height:18px;
+        border-radius:50%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:11px;
+        font-weight:bold;
+    }
 
   
- <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary px-3">
-  <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap">
 
-    <a class="navbar-brand fw-bold text-danger me-4" href="{% url 'base' %}">Sprinkled Magic</a>
+    .filter-navbar{
+        width:100%;
+        margin: 0;
+        background:white;
+        border:1px solid #eee;
+        border-left: none;    
+        border-right: none;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px;
+        padding:14px 60px;
+        border-radius: 0;
+        flex-wrap:wrap;
+    }
 
-    <div class="d-flex align-items-center flex-wrap gap-3">
+    .filter-navbar a{
+        text-decoration:none;
+        color:#444;
+        display:flex;
+        align-items:center;
+        gap:7px;
+        font-size:15px;
+        font-weight:600;
+        transition:0.3s;
+    }
 
-     
-      <a class="nav-link" href="{% url 'c' %}">Items</a>
+    .filter-navbar a:hover{
+        color:#d6006f;
+    }
 
-      
-      <a class="nav-link text-center" href="{% url 'fili' 'Cakes' %}">
-        <img src="{% static 'images/cakes.jpeg' %}" width="40" height="40" alt="Cakes"><br>
-        <small>Cakes ▼</small>
-      </a>
-      <a class="nav-link text-center" href="{% url 'fili' 'Puffs' %}">
-        <img src="{% static 'images/puffs.jpeg' %}" width="40" height="40" alt="Puffs"><br>
-        <small>Puffs ▼</small>
-      </a>
-      <a class="nav-link text-center" href="{% url 'fili' 'Muffins' %}">
-        <img src="{% static 'images/muffins.jpeg' %}" width="40" height="40" alt="Muffins"><br>
-        <small>Muffins ▼</small>
-      </a>
-      <a class="nav-link text-center" href="{% url 'fili' 'Pizza' %}">
-        <img src="{% static 'images/pizza.jpeg' %}" width="40" height="40" alt="Pizza"><br>
-        <small>Pizza ▼</small>
-      </a>
-      <a class="nav-link text-center" href="{% url 'fili' 'Shakes' %}">
-        <img src="{% static 'images/shakes.jpeg' %}" width="40" height="40" alt="Shakes"><br>
-        <small>Shakes ▼</small>
-      </a>
-    </div>
+    .filter-navbar i{
+        font-size:16px;
+    }
+
+
+
+    .mini-search-box{
+        width:260px;
+        height:40px;
+        background:white;
+        border:1px solid #ddd;
+        display:flex;
+        align-items:center;
+        border-radius:4px;
+        overflow:hidden;
+    }
+
+    .mini-search-box input{
+        width:100%;
+        border:none;
+        outline:none;
+        padding:0 12px;
+        font-size:14px;
+    }
+
+    .mini-search-box button{
+        width:45px;
+        height:100%;
+        border:none;
+        background:white;
+        color:#444;
+    }
+
+
+
+
+    .filter-select{
+        width:160px;
+        height:40px;
+        border:1px solid #ddd;
+        background:white;
+        padding:0 12px;
+        border-radius:4px;
+        font-size:14px;
+        outline:none;
+    }
+
+
+
+    .apply-btn{
+        height:40px;
+        padding:0 28px;
+        border:none;
+        background:#d6006f;
+        color:white;
+        border-radius:4px;
+        font-size:14px;
+        font-weight:600;
+        transition:0.3s;
+    }
+
+    .apply-btn:hover{
+        background:#b8005f;
+    }
+
+  
+    .hero {
+        width: 100%;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+
+    .best-sellers {
+        padding: 60px 40px;  
+        background: #fff;
+        text-align: center;
+        width: 100%;
+    }
+
+    .section-title h2{
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        font-weight: 700;
+        color: #6f4e37;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+
+    .section-title p{
+        font-family: 'Poppins', sans-serif;
+        font-size: 17px;
+        color: #7b2cbf;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    .products-container{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 30px;
+        width: 100%;
+        padding: 0 40px;
+    }
+
+  
+
+    .product-card{
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: 0.3s;
+    }
+
+    .product-card:hover{
+        transform: translateY(-8px);
+    }
+
+    .product-card img{
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .product-card h3{
+        margin: 15px 0 10px;
+        color: #333;
+        font-size: 22px;
+    }
+
+    .price{
+        color: #d6006d;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .product-card button{
+        background: #d6006d;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .product-card button:hover{
+        background: #a80056;
+    }
+
+  
+
+    </style>
+    </head>
+    <body>
+    <div class="text-white px-3 py-1 d-flex justify-content-between align-items-center"
+        style="font-size: 0.9rem; background-color:#d6006f;">
+        <div class="top-left">
+
+                <span>
+                    <i class="bi bi-telephone-fill"></i>
+                    +91 81215 48682
+                </span>
+                <span>|</span>
+
+                <span>
+                    <i class="bi bi-whatsapp"></i>
+                    WhatsApp
+                </span>
+
+                <span>|</span>
+
+                <span>
+                    <i class="bi bi-envelope-fill"></i>
+                    Contact Us
+                </span>
+
+            </div>
+
+            
+        </div>
+
+    
+  <div class="top-line"></div>
+    <div class="main-header">
+<a href="{% url 'base' %}" style="text-decoration:none;">
+        <div class="logo-section">
+
+            <img src="{% static 'images/logo.png' %}" alt="logo">
+
+            <div class="logo-text">
+                <h1>Sprinkled Magic</h1>
+                <p>Freshly Baked Happiness ♥</p>
+            </div>
+        </div>
+</a>
+
+        <form class="search-box" method="GET" action="{% url 'search' %}">
+
+            <input type="text" name="q" placeholder="Search for cakes, breads..." required">
+              <button type="submit">
+            <i class="bi bi-search"></i>
+        </button>
+         </form>
+            
+        <select class="filter-select" id="categorySelect">
+        <option value="">All Categories</option>
+        <option value="Cakes">Cakes</option>
+        <option value="Pastries">Pastries</option>
+        <option value="Breads">Breads</option>
+        <option value="Cookies">Cookies</option>
+        <option value="Muffins">Muffins</option>
+        <option value="Pizza">Pizza</option>
+        <option value="Shakes">Shakes</option>
+    </select>
+
+  
+    <select class="filter-select" id="sortSelect">
+        <option value="">Sort By</option>
+        <option value="price_asc">Price Low to High</option>
+        <option value="price_desc">Price High to Low</option>
+        <option value="newest">Newest</option>
+    </select>
 
    
-    <div class="d-flex align-items-center">
-      <a href="{% url 'view_cart' %}" class="me-3 fs-5">🛒</a>
-      <form class="d-flex search-bar" method="get" action="{% url 'search' %}">
-        <input class="form-control me-1" type="search" name="q" placeholder="Search..." aria-label="Search" value="{{ request.GET.q }}">
-        <button class="btn btn-outline-success" type="submit">🔍</button>
-      </form>
-    </div>
+    <button class="apply-btn" onclick="applyFilters()">
+        Apply
+    </button>
 
-  </div>
-</nav>
+    <script>
+    function applyFilters() {
+        var category = document.getElementById('categorySelect').value;
+        var sort = document.getElementById('sortSelect').value;
+        if (category && category !== '') {
+            var url = '/fili/' + encodeURIComponent(category) + '/';
+            if (sort) url += '?sort=' + sort;
+            window.location.href = url;
+        } else {
+            window.location.href = '/base1/';
+        }
+    }
 
+   
+    document.getElementById('categorySelect').addEventListener('change', function() {
+        var category = this.value;
+        var sort = document.getElementById('sortSelect').value;
+        if (category && category !== '') {
+            var url = '/fili/' + encodeURIComponent(category) + '/';
+            if (sort) url += '?sort=' + sort;
+            window.location.href = url;
+        } else {
+            window.location.href = '/base1/';
+        }
+    });
 
+    
+    (function() {
+        var path = window.location.pathname;
+        var match = path.match(/\/fili\/([^\/]+)\//);
+        if (match) {
+            var catSelect = document.getElementById('categorySelect');
+            var decoded = decodeURIComponent(match[1]);
+            for (var i = 0; i < catSelect.options.length; i++) {
+                if (catSelect.options[i].value.toLowerCase() === decoded.toLowerCase()) {
+                    catSelect.selectedIndex = i; break;
+                }
+            }
+        }
+        var params = new URLSearchParams(window.location.search);
+        var sort = params.get('sort');
+        if (sort) {
+            var sortSelect = document.getElementById('sortSelect');
+            for (var j = 0; j < sortSelect.options.length; j++) {
+                if (sortSelect.options[j].value === sort) {
+                    sortSelect.selectedIndex = j; break;
+                }
+            }
+        }
+    })();
+    </script>
 
+            <div class="cart-section d-flex align-items-center gap-3">
 
-{% block content %}
-<div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{% static 'images/one.jpg' %}" class="d-block w-100 " alt="image" height="350px" width="150px" >
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'images/two.jpg' %}" class="d-block w-100" alt="image" height="350px" width="150px">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'images/three.jpg' %}" class="d-block w-100" alt="image" height="350px" width="150px">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'images/four.jpg' %}" class="d-block w-100" alt="image" height="350px" width="150px">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    {% if request.session.username %}
+        <a href="{% url 'logout' %}" class="btn btn-danger">
+            Logout
+        </a>
+    {% endif %}
+           <a href="{% url 'view_cart' %}" class="cart-box">
+                <i class="bi bi-cart3"></i>
+                <span class="cart-count">{{ request.session.cart|length|default:0 }}</span>
+            </a>
+          </div>
 </div>
 
 
-<div style="margin-top: 80px;"></div>
 
+<div class="filter-navbar">
+    
+    <a href="{% url 'fili' 'Cakes' %}">
+    <img src="https://img.icons8.com/color/48/birthday-cake--v1.png" width="26" height="26">
+    <span>Cakes</span>
+</a>
 
+<a href="{% url 'fili' 'Pastries' %}">
+    <img src="https://img.icons8.com/color/48/croissant.png" width="26" height="26">
+    <span>Pastries</span>
+</a>
 
-<div class="container my-5">
-  <div class="row align-items-center text-center text-md-start">
+    <a href="{% url 'fili' 'Breads' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" width="22" height="22">
+        <span>Breads</span>
+    </a>
 
-    <div class="col-md-4 mb-4 mb-md-0">
-      <h2 class="text-danger fw-bold">Freshly Baked</h2>
-      <p style="font-size: 1.1rem;">Every cake is a masterpiece, made with love and the finest ingredients. Delight in each bite of sweetness!</p>
-    </div>
+    <a href="{% url 'fili' 'Cookies' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/541/541732.png" width="22" height="22">
+        <span>Cookies</span>
+    </a>
 
-    <div class="col-md-4 text-center mb-4 mb-md-0">
-      <img src="{% static 'images/cakeee.jpeg' %}" alt="Cake Image" class="rounded-circle shadow" style="width: 300px; height: 300px; object-fit: cover;">
-    </div>
+    <a href="{% url 'fili' 'Muffins' %}">
+    <img src="https://img.icons8.com/color/48/cupcake.png" width="26" height="26">
+    <span>Muffins</span>
+</a>
 
-    <div class="col-md-4">
-      <h2 class="text-success fw-bold">Magic in Every Slice</h2>
-      <p style="font-size: 1.1rem;">From birthdays to celebrations, our cakes bring joy, warmth, and unforgettable flavors to your special moments.</p>
-    </div>
+    <a href="{% url 'fili' 'Pizza' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" width="22" height="22">
+        <span>Pizza</span>
+    </a>
 
-  </div>
+    <a href="{% url 'fili' 'Shakes' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/2738/2738730.png" width="22" height="22">
+        <span>Shakes</span>
+    </a>
 </div>
 
+{% if request.resolver_match.url_name == 'base' %}
+<section class="hero">
+    <img src="{% static 'images/UI.png' %}" alt="Freshly Baked Happiness">
+</section>
+{% endif %}
 
-<footer style="background-color: #f7f7f7; font-family: Arial, sans-serif; padding: 40px 20px; color: #333;">
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 30px; border-bottom: 2px solid #ddd; padding-bottom: 20px;">
-    <div><strong>🏆 Excellence Delivered</strong><br>Trusted since 2023</div>
-    <div><strong>👥 Two Million +</strong><br>Happy Active Customers</div>
-    <div><strong>🌟 Your Satisfaction</strong><br>is our No.1 Priority</div>
-    <div><strong>📦 Top Selling Products</strong><br>10,000+</div>
+
+ {% if request.resolver_match.url_name == 'base' %}
+<section class="best-sellers">
+    <div class="section-title">
+        <h2>Our Best Sellers</h2>
+        <p>Freshly baked favorites loved by everyone</p>
+    </div>
+    <div class="products-container">
+        {% for item in best_sellers %}
+        <div class="product-card">
+            <a href="{% url 'fil' item.id %}" style="text-decoration:none; color:inherit;">
+                <img src="{{ item.Image.url }}" alt="{{ item.Items }}">
+                <h3>{{ item.Items }}</h3>
+                <p class="price">₹{{ item.Price }}</p>
+            </a>
+            <form method="POST" action="/add-to-cart/{{ item.id }}/">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if request.resolver_match.url_name == 'base' %}
+<section class="best-sellers">
+    <div class="section-title">
+        <h2>Most Loved Treats</h2>
+        <p>Hand-picked favorites by our customers</p>
+    </div>
+    <div class="products-container">
+        {% for item in most_loved %}
+        <div class="product-card">
+            <a href="{% url 'fil' item.id %}" style="text-decoration:none; color:inherit;">
+                <img src="{{ item.Image.url }}" alt="{{ item.Items }}">
+                <h3>{{ item.Items }}</h3>
+                <p class="price">₹{{ item.Price }}</p>
+            </a>
+            <form method="POST" action="/add-to-cart/{{ item.id }}/">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+
+
+<!-- {% block content %}
+{% endblock content %} -->
+
+<footer style="font-family: Arial, sans-serif;">
+
+  <div style="background:#c2185b; display:flex; flex-wrap:wrap; justify-content:space-around; align-items:center; padding:18px 40px; gap:20px;">
+    
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/delivery--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Excellence Delivered</strong>
+        <span style="font-size:12px;">Trusted since 2023</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/speech-bubble--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Two Million +</strong>
+        <span style="font-size:12px;">Happy Active Customers</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/star--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Your Satisfaction</strong>
+        <span style="font-size:12px;">is our No.1 Priority</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/box--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Top Selling Products</strong>
+        <span style="font-size:12px;">10,000 +</span>
+      </div>
+    </div>
+
   </div>
 
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+ 
+  <div style="background:#fffff0; display:flex; flex-wrap:wrap; justify-content:space-between; padding:40px 60px; gap:30px;">
+
     <div>
-      <h4>ABOUT</h4>
-      <ul>
-        <li>About Us</li>
-        <li>Our Stores</li>
-        <li>Reviews</li>
-        <li>Contact</li>
-        <li>Careers</li>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">ABOUT</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'about' %}" style="color:#555; text-decoration:none; font-size:14px;">About Us</a></li>
+        <li><a href="{% url 'reviews' %}" style="color:#555; text-decoration:none; font-size:14px;">Reviews</a></li>
+        <li><a href="{% url 'contact' %}" style="color:#555; text-decoration:none; font-size:14px;">Contact</a></li>
+        <li><a href="{% url 'careers' %}" style="color:#555; text-decoration:none; font-size:14px;">Careers</a></li>
       </ul>
     </div>
+
     <div>
-      <h4>CUSTOMER SERVICES</h4>
-      <ul>
-        <li>Customize A Cake</li>
-        <li>Custom Gifts</li>
-        <li>Support</li>
-        <li>Franchises</li>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">CUSTOMER SERVICES</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'customize_cake' %}" style="color:#555; text-decoration:none; font-size:14px;">Customize A Cake</a></li>
+        <li><a href="{% url 'custom_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Custom Gifts</a></li>
+        <li><a href="{% url 'corporate_orders' %}" style="color:#555; text-decoration:none; font-size:14px;">Corporate Orders</a></li>
+        <li><a href="{% url 'support' %}" style="color:#555; text-decoration:none; font-size:14px;">Support</a></li>
       </ul>
     </div>
+
     <div>
-      <h4>HELP</h4>
-      <ul>
-        <li>FAQs</li>
-        <li>Shipping & Delivery</li>
-        <li>Delivery Cities</li>
-        <li>Return Policy</li>
-        <li>Privacy Policy</li>
-        <li>Terms and Conditions</li>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">HELP</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'faqs' %}" style="color:#555; text-decoration:none; font-size:14px;">FAQs</a></li>
+        <li><a href="{% url 'shipping_delivery' %}" style="color:#555; text-decoration:none; font-size:14px;">Shipping & Delivery</a></li>
+        <li><a href="{% url 'return_policy' %}" style="color:#555; text-decoration:none; font-size:14px;">Return Policy</a></li>
+        <li><a href="{% url 'privacy_policy' %}" style="color:#555; text-decoration:none; font-size:14px;">Privacy Policy</a></li>
+        <li><a href="{% url 'terms_condition' %}" style="color:#555; text-decoration:none; font-size:14px;">Terms and Condition</a></li>
+        <li><a href="{% url 'blog' %}" style="color:#555; text-decoration:none; font-size:14px;">Blog</a></li>
       </ul>
     </div>
+
     <div>
-      <h4>GIFTS BY CITY</h4>
-      <ul>
-        <li>Hyderabad</li>
-        <li>Bangalore</li>
-        <li>Chennai</li>
-        <li>Delhi</li>
-        <li>Vizag</li>
-        <li>Vijayawada</li>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">EVENTS</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'gifts_to_mother' %}" style="color:#555; text-decoration:none; font-size:14px;">Gifts To Mother</a></li>
+        <li><a href="{% url 'birthday_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Birthday Cakes</a></li>
+        <li><a href="{% url 'anniversary_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Anniversary Cakes</a></li>
+        <li><a href="{% url 'first_anniversary_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">1st Anniversary Gifts</a></li>
+        <li><a href="{% url 'twentyfive_anniversary_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">25th Anniversary Gifts</a></li>
+        <li><a href="{% url 'baby_boy_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Baby Boy Cakes</a></li>
+        <li><a href="{% url 'baby_girl_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Baby Girl Cakes</a></li>
       </ul>
     </div>
+
+    <div>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">OCCASIONS</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'mothers_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Mothers Day Gifts</a></li>
+        <li><a href="{% url 'parents_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Parents Day Gifts</a></li>
+        <li><a href="{% url 'friendship_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Friendship Day Gifts</a></li>
+        <li><a href="{% url 'rakhi_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Rakhi Gifts</a></li>
+        <li><a href="{% url 'christmas_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Christmas Gifts</a></li>
+        <li><a href="{% url 'new_year_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">New Year Gifts</a></li>
+        <li><a href="{% url 'valentines_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Valentines Day Gifts</a></li>
+      </ul>
+    </div>
+
   </div>
 
-  <div style="margin-top: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-    <p>© 2025 NIKITHA ENTERPRISES PRIVATE LIMITED - All Rights Reserved</p>
-    <div>
-      <img src="{% static 'images/pay.jpg' %}" alt="Payment Methods" style="height: 30px;">
+ 
+  <div style="background:#fffff0; border-top:1px solid #ddd; padding:20px 60px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:15px;">
+    
+    <p style="margin:0; font-size:13px; color:#555;">Copyright © 2026 NIKITHA ENTERPRISES PRIVATE LIMITED – All Rights Reserved</p>
+    
+    <div style="display:flex; gap:8px; align-items:center;">
+      <img src="https://img.icons8.com/color/48/mastercard.png" width="38">
+      <img src="https://img.icons8.com/color/48/visa.png" width="38">
+      <img src="https://img.icons8.com/color/48/amex.png" width="38">
+      <img src="https://img.icons8.com/color/48/discover.png" width="38">
+      <img src="https://img.icons8.com/color/48/paypal.png" width="38">
     </div>
+
+    <div style="display:flex; gap:18px;">
+      <a href="https://www.facebook.com/" style="color:#555; font-size:20px;"><i class="bi bi-facebook"></i></a>
+      <a href="https://www.instagram.com/" style="color:#555; font-size:20px;"><i class="bi bi-instagram"></i></a>
+      <a href="https://www.youtube.com/" style="color:#555; font-size:20px;"><i class="bi bi-youtube"></i></a>
+    </div>
+
   </div>
+
 </footer>
 
-{% endblock content %}
 </body>
 </html>
+

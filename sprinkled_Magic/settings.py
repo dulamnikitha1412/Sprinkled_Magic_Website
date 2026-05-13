@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+
     'Application'
 ]
 
@@ -80,21 +83,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# import pymysql
-# pymysql.install_as_MySQLdb()
-
-# DATABASES={
-#     'default':{
-#         'ENGINE':'django.db.backends.mysql',
-#         'NAME':'nikitha',
-#         'USER':'root',
-#         'PASSWORD':'Indu@1412',
-#         'HOST':'localhost',
-#         'PORT':'3306',
-#     }
-# }
 
 
 # Password validation
@@ -140,5 +128,26 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ---------------------------------------------------------------------------
+# Secure session configuration
+# ---------------------------------------------------------------------------
+SESSION_COOKIE_HTTPONLY = True   # JavaScript cannot access the session cookie
+SESSION_COOKIE_SAMESITE = 'Lax'  # Mitigates CSRF via cross-site requests
+SESSION_COOKIE_AGE      = 60 * 60 * 8   # Sessions expire after 8 hours
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Honour the age above
+SESSION_SAVE_EVERY_REQUEST = True        # Slide the expiry window on each request
+
+# In production set these to True (requires HTTPS):
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE    = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
