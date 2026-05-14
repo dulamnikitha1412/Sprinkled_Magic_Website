@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Q, Sum
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseForbidden
 from .models import bakery_models, order
 from .models import bakery_models, register_model, customer, order
 from .forms import bakery_forms, register_forms, Login_form,ResetPasswordForm
@@ -258,8 +258,6 @@ def valentines_day_gifts(request):
 
 @admin_required
 def admin_dashboard(request):
-    if not request.user.is_staff:
-        raise PermissionDenied
     total_products  = bakery_models.objects.count()
     total_customers = register_model.objects.count()
     total_orders    = order.objects.count()
@@ -321,6 +319,7 @@ def base_view(request):
     # Admins should always land on the admin dashboard
     if request.session.get('is_admin'):
         return redirect('admin_dashboard')
+    error_message = request.session.pop('error_message', None)
     items = bakery_models.objects.all()
     best_sellers = bakery_models.objects.filter(Items__in=[
         'BlackForest',    
@@ -334,7 +333,7 @@ def base_view(request):
         'BBQ pizza',
         'Fruit Tarts',
     ])
-    return render(request, 'base.html', {'items': items, 'best_sellers': best_sellers, 'most_loved': most_loved})
+    return render(request, 'base.html', {'items': items, 'best_sellers': best_sellers, 'most_loved': most_loved,'error_message': error_message,})
 
 
 @login_required
