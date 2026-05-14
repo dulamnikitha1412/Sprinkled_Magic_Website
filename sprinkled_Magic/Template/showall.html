@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<!-- {% block content %} -->
+
+   
+
+    <div class="row">
+      
+        {% for i in data1 %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 18rem;">
+            <img src="{{i.Image.url}}" class="card-img-top " alt="image" width="100px" height="150px">
+            <div class="card-body">
+                <h5 class="card-title">{{i.Name}}</h5>
+                <h3 class="card sub-title">{{i.Items}}</h3>
+                <p class="card-text">₹{{i.Price}}</p>
+                <a href="{% url 'fil' i.id %}" class="btn btn-primary">Buy</a>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+        
+
+<!-- {% endblock content %} -->

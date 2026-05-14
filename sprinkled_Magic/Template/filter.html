@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+<!-- {% block content %} -->
+
+<style>
+  .detail-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 40px 60px;
+  }
+
+  .detail-breadcrumb {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .detail-breadcrumb a { color: #d6006f; text-decoration: none; }
+  .detail-breadcrumb a:hover { text-decoration: underline; }
+  .detail-breadcrumb span { color: #aaa; }
+
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .detail-layout { grid-template-columns: 1fr; gap: 30px; }
+    .detail-page   { padding: 20px; }
+  }
+
+  
+  .img-main {
+    flex: 1; border-radius: 18px; overflow: hidden;
+    background: #f9f9f9; aspect-ratio: 1/1; max-height: 440px;
+  }
+  .img-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+  .img-main img:hover { transform: scale(1.04); }
+
+ 
+  .info-panel h1 {
+    font-size: 28px; font-weight: 800; color: #1a1a1a; margin: 0 0 12px; line-height: 1.2;
+  }
+
+  .rating-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .rating-badge {
+    background: #4CAF50; color: white; font-size: 14px; font-weight: 700;
+    padding: 4px 10px; border-radius: 6px; display: flex; align-items: center; gap: 4px;
+  }
+
+  .price-row { margin-bottom: 24px; }
+  .price-row .price { font-size: 38px; font-weight: 800; color: #1a1a1a; }
+  .price-row .price span { font-size: 26px; vertical-align: super; font-weight: 700; }
+
+  .category-tag {
+    display: inline-block; background: #fff0f7; color: #d6006f;
+    border: 1px solid #ffc0db; font-size: 13px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 20px;
+  }
+
+  .detail-divider { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+
+  .cart-section { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
+
+  .qty-wrap { display: flex; align-items: center; border: 1.5px solid #ddd; border-radius: 10px; overflow: hidden; height: 52px; }
+  .qty-wrap button {
+    width: 44px; height: 100%; border: none; background: #f5f5f5;
+    font-size: 20px; font-weight: 700; color: #555; cursor: pointer; transition: background 0.2s, color 0.2s;
+  }
+  .qty-wrap button:hover { background: #ffe0ef; color: #d6006f; }
+  .qty-wrap input {
+    width: 50px; height: 100%; border: none;
+    border-left: 1.5px solid #ddd; border-right: 1.5px solid #ddd;
+    text-align: center; font-size: 16px; font-weight: 700; outline: none; color: #222;
+  }
+
+  .add-cart-btn {
+    flex: 1; min-width: 160px; height: 52px; background: #d6006f; color: white;
+    border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .add-cart-btn:hover { background: #a80056; transform: translateY(-1px); }
+  .add-cart-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+  .secure-box { background: #f9f9f9; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; }
+  .secure-title { display: flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: #333; margin-bottom: 12px; }
+  .secure-title i { color: #4CAF50; font-size: 18px; }
+  .payment-icons { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .payment-icons img { height: 26px; object-fit: contain; }
+</style>
+
+{% if data2 %}
+<div class="detail-page">
+
+ 
+  <div class="detail-breadcrumb">
+    <a href="{% url 'base' %}">Home</a>
+    <span>›</span>
+    <a href="{% url 'fili' data2.Name %}">{{ data2.Name }}</a>
+    <span>›</span>
+    <span style="color:#444;">{{ data2.Items }}</span>
+  </div>
+
+  <div class="detail-layout">
+
+    <div class="img-main">
+      <img id="main-img" src="{{ data2.Image.url }}" alt="{{ data2.Items }}">
+    </div>
+
+  
+    <div class="info-panel">
+
+      <h1>{{ data2.Items }}</h1>
+
+      <span class="category-tag">
+        <i class="bi bi-tag-fill"></i> {{ data2.Name }}
+      </span>
+
+      
+      <div class="rating-row">
+        <div class="rating-badge">
+          4.5 <i class="bi bi-star-fill" style="font-size:11px;"></i>
+        </div>
+      </div>
+
+      
+      <div class="price-row">
+        <div class="price"><span>&#8377;</span>{{ data2.Price }}</div>
+      </div>
+
+      <hr class="detail-divider">
+
+    
+      <form method="POST" action="{% url 'add_to_cart' data2.id %}">
+        {% csrf_token %}
+        <div class="cart-section">
+          <div class="qty-wrap">
+            <button type="button" onclick="changeQty(-1)">&#8722;</button>
+            <input type="number" name="quantity" id="qty-input" value="1" min="1" max="{{ data2.Stock }}">
+            <button type="button" onclick="changeQty(1)">+</button>
+          </div>
+          <button type="submit" class="add-cart-btn">
+            <i class="bi bi-cart-plus-fill"></i> Add to Cart
+          </button>
+        </div>
+      </form>
+
+      
+      <div class="secure-box">
+        <div class="secure-title">
+          <i class="bi bi-shield-lock-fill"></i>
+          100% Safe and Secure Payments
+        </div>
+        <div style="font-size:12px;color:#888;margin-bottom:10px;">Payment Methods:</div>
+        <div class="payment-icons">
+          <img src="https://img.icons8.com/color/48/mastercard.png" alt="Mastercard">
+          <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+          <img src="https://img.icons8.com/color/48/amex.png" alt="Amex">
+          <img src="https://img.icons8.com/color/48/discover.png" alt="Discover">
+          <img src="https://img.icons8.com/color/48/paypal.png" alt="PayPal">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+{% endif %}
+
+<script>
+  function changeQty(delta) {
+    const input = document.getElementById('qty-input');
+    const max   = parseInt(input.max) || 99;
+    const newVal = parseInt(input.value) + delta;
+    if (newVal >= 1 && newVal <= max) input.value = newVal;
+  }
+  function setMain(thumb, src) {
+    document.getElementById('main-img').src = src;
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+  }
+</script>
+
+<!-- {% endblock content %} -->

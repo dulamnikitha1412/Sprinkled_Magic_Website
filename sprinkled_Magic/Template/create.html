@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<!-- {% block content %} -->
+
+{% if data %}
+<div class="container mt-4" style="max-width: 600px;">
+    <h4 class="mb-4" style="color:#d6006f;">Add New Item</h4>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{data.as_p}}
+   <center>
+    <button class="btn btn-primary mt-3" style="background:#d6006f; border:none;">Submit</button>
+    </center>
+</form>
+</div>
+{% endif %}
+
+<!-- {% endblock content %} -->

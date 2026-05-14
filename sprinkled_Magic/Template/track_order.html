@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .track-page {
+    max-width: 700px;
+    margin: 50px auto;
+    font-family: Arial, sans-serif;
+    padding: 0 16px;
+  }
+  .track-page h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 6px;
+  }
+  .track-page .subtitle { color: #777; font-size: 14px; margin-bottom: 28px; }
+
+  .search-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    margin-bottom: 28px;
+  }
+  .search-card label { font-size: 14px; font-weight: 600; color: #444; margin-bottom: 8px; display: block; }
+  .search-row { display: flex; gap: 12px; }
+  .search-row input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-size: 15px;
+    outline: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .search-row input:focus { border-color: #d6006f; box-shadow: 0 0 0 3px rgba(214,0,111,0.1); }
+  .btn-track {
+    background: #d6006f; color: white; border: none;
+    padding: 11px 26px; border-radius: 10px; font-size: 15px;
+    cursor: pointer; font-weight: 700;
+  }
+  .btn-track:hover { background: #b0005a; }
+
+  .error-msg {
+    background: #fff5f5; border: 1px solid #fca5a5;
+    border-radius: 10px; padding: 14px 18px;
+    color: #b91c1c; font-size: 14px; margin-bottom: 20px;
+  }
+
+  
+  .order-info-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+  }
+  .order-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+  }
+  .order-id-big { font-size: 22px; font-weight: 700; color: #d6006f; letter-spacing: 1px; }
+  .order-meta { font-size: 13px; color: #888; margin-top: 4px; }
+
+  .order-detail-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; margin-top: 14px;
+    border-top: 1px solid #f0f0f0; padding-top: 16px;
+  }
+  .detail-item label { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+  .detail-item span  { font-size: 15px; font-weight: 600; color: #333; display: block; margin-top: 2px; }
+
+  
+  .tracker-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .tracker-card h5 { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 30px; }
+
+  .steps-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  
+  .steps-row::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    right: 22px;
+    height: 3px;
+    background: #e5e7eb;
+    z-index: 0;
+  }
+
+  
+  .steps-row .progress-line {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    height: 3px;
+    background: #d6006f;
+    z-index: 1;
+    transition: width 0.4s ease;
+  }
+
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-circle {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    border: 3px solid #e5e7eb;
+    transition: all 0.3s;
+  }
+  .step-circle.done {
+    background: #d6006f;
+    border-color: #d6006f;
+  }
+  .step-circle.active {
+    background: white;
+    border-color: #d6006f;
+    box-shadow: 0 0 0 4px rgba(214,0,111,0.15);
+  }
+
+  .step-label {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #aaa;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .step-label.done   { color: #d6006f; }
+  .step-label.active { color: #d6006f; }
+
+  .step-time {
+    font-size: 11px;
+    color: #bbb;
+    margin-top: 3px;
+    text-align: center;
+  }
+  .step-time.active { color: #d6006f; font-weight: 600; }
+
+
+  .big-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 20px; border-radius: 24px;
+    font-size: 15px; font-weight: 700;
+  }
+  .big-badge.pending   { background:#fff3cd; color:#856404; }
+  .big-badge.preparing { background:#cff4fc; color:#055160; }
+  .big-badge.ofd       { background:#e0d9fc; color:#4c1d95; }
+  .big-badge.delivered { background:#d1fae5; color:#065f46; }
+</style>
+
+<div class="track-page">
+  <h2>📦 Track Your Order</h2>
+  <p class="subtitle">Enter your Order ID (format: SM-XXXXXX) to see real-time status updates.</p>
+
+
+  <div class="search-card">
+    <label>Order ID</label>
+    <form method="GET" action="{% url 'track_order' %}">
+      <div class="search-row">
+        <input type="text" name="order_id"
+               placeholder="e.g. SM-A1B2C3"
+               value="{{ request.GET.order_id }}"
+               autocomplete="off">
+        <button type="submit" class="btn-track">🔍 Track</button>
+      </div>
+    </form>
+  </div>
+
+  {% if error %}
+  <div class="error-msg">❌ {{ error }}</div>
+  {% endif %}
+
+  {% if order %}
+  <!-- ORDER INFO -->
+  <div class="order-info-card">
+    <div class="order-header">
+      <div>
+        <div class="order-id-big">{{ order.order_id }}</div>
+        <div class="order-meta">Placed on {{ order.created_at|date:"d M Y, H:i" }}</div>
+      </div>
+      <div>
+        {% if order.status == 'Pending' %}
+          <span class="big-badge pending">⏳ Pending</span>
+        {% elif order.status == 'Preparing' %}
+          <span class="big-badge preparing">🍳 Preparing</span>
+        {% elif order.status == 'Out for Delivery' %}
+          <span class="big-badge ofd">🚚 Out for Delivery</span>
+        {% else %}
+          <span class="big-badge delivered">✅ Delivered</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="order-detail-grid">
+      <div class="detail-item">
+        <label>Item</label>
+        <span>{{ order.products.Items }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Category</label>
+        <span>{{ order.products.Name|default:"—" }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Quantity</label>
+        <span>{{ order.quantity }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Total Paid</label>
+        <span>₹{{ order.total_price }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tracker-card">
+    <h5>🗺️ Order Journey</h5>
+
+    {% with step=order.status_step %}
+    <div class="steps-row" id="stepsRow">
+  
+      <div class="progress-line" id="progressLine"></div>
+
+      <div class="step-item">
+        <div class="step-circle {% if step >= 0 %}{% if step == 0 %}active{% else %}done{% endif %}{% endif %}">
+          {% if step > 0 %}✔{% else %}⏳{% endif %}
+        </div>
+        <div class="step-label {% if step >= 0 %}{% if step == 0 %}active{% else %}done{% endif %}{% endif %}">Pending</div>
+        {% if step == 0 %}<div class="step-time active">Now</div>{% endif %}
+      </div>
+
+    
+      <div class="step-item">
+        <div class="step-circle {% if step >= 1 %}{% if step == 1 %}active{% else %}done{% endif %}{% endif %}">
+          {% if step > 1 %}✔{% else %}🍳{% endif %}
+        </div>
+        <div class="step-label {% if step >= 1 %}{% if step == 1 %}active{% else %}done{% endif %}{% endif %}">Preparing</div>
+        {% if step == 1 %}<div class="step-time active">Now</div>{% endif %}
+      </div>
+
+      
+      <div class="step-item">
+        <div class="step-circle {% if step >= 2 %}{% if step == 2 %}active{% else %}done{% endif %}{% endif %}">
+          {% if step > 2 %}✔{% else %}🚚{% endif %}
+        </div>
+        <div class="step-label {% if step >= 2 %}{% if step == 2 %}active{% else %}done{% endif %}{% endif %}">Out for Delivery</div>
+        {% if step == 2 %}<div class="step-time active">Now</div>{% endif %}
+      </div>
+
+   
+      <div class="step-item">
+        <div class="step-circle {% if step >= 3 %}{% if step == 3 %}active{% else %}done{% endif %}{% endif %}">
+          {% if step >= 3 %}✔{% else %}✅{% endif %}
+        </div>
+        <div class="step-label {% if step >= 3 %}{% if step == 3 %}active{% else %}done{% endif %}{% endif %}">Delivered</div>
+        {% if step == 3 %}<div class="step-time active">{{ order.updated_at|date:"d M, H:i" }}</div>{% endif %}
+      </div>
+    </div>
+
+    <script>
+     
+      (function() {
+        var step = {{ step }};
+        var totalSteps = 3;
+        var pct = (step / totalSteps) * 100;
+        document.getElementById('progressLine').style.width = 'calc(' + pct + '% - ' + (pct > 0 ? 22 : 0) + 'px)';
+      })();
+    </script>
+    {% endwith %}
+
+    <p style="text-align:center; color:#aaa; font-size:13px; margin-top:28px;">
+      Last updated: {{ order.updated_at|date:"d M Y, H:i" }}
+    </p>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

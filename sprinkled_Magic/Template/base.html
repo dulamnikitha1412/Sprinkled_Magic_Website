@@ -1,0 +1,805 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprinkled Magic</title>
+    <link rel="icon" href="{% static 'images/icon.jpg' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+      *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        font-family: Arial, sans-serif;
+        background:#fff;
+    }
+
+    .top-left{
+      background:#d6006f;
+      color: white;
+      font-size: 0.9rem;
+      display:flex;
+      align-items:center;
+      gap:12px;
+
+    }
+
+    .top-line{
+      height:4px;
+      background:#d6006f;
+      width:100%;
+    }
+
+    .main-header{
+      background:white;
+      padding: 18px 60px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid #eee;
+      /* flex-wrap:wrap; */
+      gap:20px;
+    }
+
+    .logo-section{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:320px;
+    }
+
+    .logo-section img{
+      width:95px;
+      height:50px;
+      object-fit:cover;
+    }
+
+    .logo-text{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+    }
+
+    .logo-text h1{
+      margin:0;
+      /* padding:0; */
+      font-size:34px;
+      font-family:'Brush Script MT', cursive;
+      font-weight:400;
+      color:#d6006f;
+      line-height:1;
+    }
+
+    .logo-text p{
+      margin:0;
+      margin-top:3px;
+      font-size:14px;
+      color:#d6006f;
+      font-family:Arial, sans-serif;
+      font-weight:500;
+      letter-spacing:0.3px;
+    }
+
+    .search-box{
+      max-width:700px;
+      height:55px;
+      display:flex;
+      align-items:center;
+      border:1px solid #ddd;
+      border-radius:40px;
+      overflow:hidden;
+      background:white;
+      flex:1;
+  }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      padding:0 22px;
+      font-size:16px;
+    }
+
+    .search-box button{
+      width:48px;
+      height:48px;
+      min-width:48px;
+      border:none;
+      background:#d6006f;
+      color:white;
+      border-radius:50%;
+      margin-right:4px;
+      font-size:18px;
+    }
+
+    .cart-section{
+        min-width:50px;
+        display:flex;
+        justify-content:flex-end;
+    }
+
+    .cart-box{
+        position:relative;
+        color:#d6006f;
+        font-size:30px;
+        text-decoration:none;
+    }
+
+    .cart-count{
+        position:absolute;
+        top:-8px;
+        right:-10px;
+        background:#d6006f;
+        color:white;
+        width:18px;
+        height:18px;
+        border-radius:50%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:11px;
+        font-weight:bold;
+    }
+
+  
+
+    .filter-navbar{
+        width:100%;
+        margin: 0;
+        background:white;
+        border:1px solid #eee;
+        border-left: none;    
+        border-right: none;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px;
+        padding:14px 60px;
+        border-radius: 0;
+        flex-wrap:wrap;
+    }
+
+    .filter-navbar a{
+        text-decoration:none;
+        color:#444;
+        display:flex;
+        align-items:center;
+        gap:7px;
+        font-size:15px;
+        font-weight:600;
+        transition:0.3s;
+    }
+
+    .filter-navbar a:hover{
+        color:#d6006f;
+    }
+
+    .filter-navbar i{
+        font-size:16px;
+    }
+
+
+
+    .mini-search-box{
+        width:260px;
+        height:40px;
+        background:white;
+        border:1px solid #ddd;
+        display:flex;
+        align-items:center;
+        border-radius:4px;
+        overflow:hidden;
+    }
+
+    .mini-search-box input{
+        width:100%;
+        border:none;
+        outline:none;
+        padding:0 12px;
+        font-size:14px;
+    }
+
+    .mini-search-box button{
+        width:45px;
+        height:100%;
+        border:none;
+        background:white;
+        color:#444;
+    }
+
+
+
+
+    .filter-select{
+        width:160px;
+        height:40px;
+        border:1px solid #ddd;
+        background:white;
+        padding:0 12px;
+        border-radius:4px;
+        font-size:14px;
+        outline:none;
+    }
+
+
+
+    .apply-btn{
+        height:40px;
+        padding:0 28px;
+        border:none;
+        background:#d6006f;
+        color:white;
+        border-radius:4px;
+        font-size:14px;
+        font-weight:600;
+        transition:0.3s;
+    }
+
+    .apply-btn:hover{
+        background:#b8005f;
+    }
+
+  
+    .hero {
+        width: 100%;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+
+    .best-sellers {
+        padding: 60px 40px;  
+        background: #fff;
+        text-align: center;
+        width: 100%;
+    }
+
+    .section-title h2{
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        font-weight: 700;
+        color: #6f4e37;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+
+    .section-title p{
+        font-family: 'Poppins', sans-serif;
+        font-size: 17px;
+        color: #7b2cbf;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    .products-container{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 30px;
+        width: 100%;
+        padding: 0 40px;
+    }
+
+  
+
+    .product-card{
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: 0.3s;
+    }
+
+    .product-card:hover{
+        transform: translateY(-8px);
+    }
+
+    .product-card img{
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .product-card h3{
+        margin: 15px 0 10px;
+        color: #333;
+        font-size: 22px;
+    }
+
+    .price{
+        color: #d6006d;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .product-card button{
+        background: #d6006d;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .product-card button:hover{
+        background: #a80056;
+    }
+
+     @media (max-width: 768px) {
+
+      .main-header {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo-section {
+        min-width: unset;
+      }
+
+      .logo-text h1 {
+        font-size: 22px;
+      }
+
+      .search-box {
+        width: 100%;
+        height: 44px;
+      }
+
+      .filter-navbar {
+        padding: 10px 16px;
+        gap: 10px;
+        justify-content: flex-start;
+      }
+
+      .filter-navbar a {
+        font-size: 13px;
+        width: 45%;
+      }
+
+      .mini-search-box,
+      .filter-select,
+      .apply-btn {
+        display: none;
+      }
+
+      .products-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 0 12px;
+      }
+
+      .product-card {
+        padding: 12px;
+      }
+
+      .product-card img {
+        height: 140px;
+      }
+
+      .product-card h3 {
+        font-size: 15px;
+      }
+
+      .price {
+        font-size: 15px;
+      }
+
+      .product-card button {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+
+      .section-title h2 {
+        font-size: 26px;
+      }
+
+      .section-title p {
+        font-size: 14px;
+      }
+
+      .best-sellers {
+        padding: 30px 12px;
+      }
+    }
+
+    </style>
+    </head>
+    <body>
+    <div class="text-white px-3 py-1 d-flex justify-content-between align-items-center"
+        style="font-size: 0.9rem; background-color:#d6006f;">
+        <div class="top-left">
+
+                <span>
+                    <i class="bi bi-telephone-fill"></i>
+                    +91 81215 48682
+                </span>
+                <span>|</span>
+
+                <span>
+                    <i class="bi bi-whatsapp"></i>
+                    WhatsApp
+                </span>
+
+                <span>|</span>
+
+                <span>
+                    <i class="bi bi-envelope-fill"></i>
+                    Contact Us
+                </span>
+
+            </div>
+
+            
+        </div>
+
+    
+  <div class="top-line"></div>
+    <div class="main-header">
+<a href="{% url 'base' %}" style="text-decoration:none;">
+        <div class="logo-section">
+
+            <img src="{% static 'images/logo.png' %}" alt="logo">
+
+            <div class="logo-text">
+                <h1>Sprinkled Magic</h1>
+                <p>Freshly Baked Happiness ♥</p>
+            </div>
+        </div>
+</a>
+
+        <form class="search-box" method="GET" action="{% url 'search' %}">
+
+            <input type="text" name="q" placeholder="Search for cakes, breads..." required">
+              <button type="submit">
+            <i class="bi bi-search"></i>
+        </button>
+         </form>
+            
+        <select class="filter-select" id="categorySelect">
+        <option value="">All Categories</option>
+        <option value="Cakes">Cakes</option>
+        <option value="Pastries">Pastries</option>
+        <option value="Breads">Breads</option>
+        <option value="Cookies">Cookies</option>
+        <option value="Muffins">Muffins</option>
+        <option value="Pizza">Pizza</option>
+        <option value="Shakes">Shakes</option>
+    </select>
+
+  
+    <select class="filter-select" id="sortSelect">
+        <option value="">Sort By</option>
+        <option value="price_asc">Price Low to High</option>
+        <option value="price_desc">Price High to Low</option>
+        <option value="newest">Newest</option>
+    </select>
+
+   
+    <button class="apply-btn" onclick="applyFilters()">
+        Apply
+    </button>
+
+    <script>
+    function applyFilters() {
+        var category = document.getElementById('categorySelect').value;
+        var sort = document.getElementById('sortSelect').value;
+        if (category && category !== '') {
+            var url = '/fili/' + encodeURIComponent(category) + '/';
+            if (sort) url += '?sort=' + sort;
+            window.location.href = url;
+        } else {
+            window.location.href = '/base1/';
+        }
+    }
+
+   
+    document.getElementById('categorySelect').addEventListener('change', function() {
+        var category = this.value;
+        var sort = document.getElementById('sortSelect').value;
+        if (category && category !== '') {
+            var url = '/fili/' + encodeURIComponent(category) + '/';
+            if (sort) url += '?sort=' + sort;
+            window.location.href = url;
+        } else {
+            window.location.href = '/base1/';
+        }
+    });
+
+    
+    (function() {
+        var path = window.location.pathname;
+        var match = path.match(/\/fili\/([^\/]+)\//);
+        if (match) {
+            var catSelect = document.getElementById('categorySelect');
+            var decoded = decodeURIComponent(match[1]);
+            for (var i = 0; i < catSelect.options.length; i++) {
+                if (catSelect.options[i].value.toLowerCase() === decoded.toLowerCase()) {
+                    catSelect.selectedIndex = i; break;
+                }
+            }
+        }
+        var params = new URLSearchParams(window.location.search);
+        var sort = params.get('sort');
+        if (sort) {
+            var sortSelect = document.getElementById('sortSelect');
+            for (var j = 0; j < sortSelect.options.length; j++) {
+                if (sortSelect.options[j].value === sort) {
+                    sortSelect.selectedIndex = j; break;
+                }
+            }
+        }
+    })();
+    </script>
+
+            <div class="cart-section d-flex align-items-center gap-3">
+
+    {% if request.session.username %}
+        <a href="{% url 'logout' %}" class="btn btn-danger">
+            Logout
+        </a>
+    {% endif %}
+           <a href="{% url 'view_cart' %}" class="cart-box">
+                <i class="bi bi-cart3"></i>
+                <span class="cart-count">{{ request.session.cart|length|default:0 }}</span>
+            </a>
+          </div>
+</div>
+
+{% if request.session.error_message %}
+  <div style="padding: 10px 60px 0;">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ request.session.error_message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+{% endif %}
+
+<div class="filter-navbar">
+    
+    <a href="{% url 'fili' 'Cakes' %}">
+    <img src="https://img.icons8.com/color/48/birthday-cake--v1.png" width="26" height="26">
+    <span>Cakes</span>
+</a>
+
+<a href="{% url 'fili' 'Pastries' %}">
+    <img src="https://img.icons8.com/color/48/croissant.png" width="26" height="26">
+    <span>Pastries</span>
+</a>
+
+    <a href="{% url 'fili' 'Breads' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" width="22" height="22">
+        <span>Breads</span>
+    </a>
+
+    <a href="{% url 'fili' 'Cookies' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/541/541732.png" width="22" height="22">
+        <span>Cookies</span>
+    </a>
+
+    <a href="{% url 'fili' 'Muffins' %}">
+    <img src="https://img.icons8.com/color/48/cupcake.png" width="26" height="26">
+    <span>Muffins</span>
+</a>
+
+    <a href="{% url 'fili' 'Pizza' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" width="22" height="22">
+        <span>Pizza</span>
+    </a>
+
+    <a href="{% url 'fili' 'Shakes' %}">
+        <img src="https://cdn-icons-png.flaticon.com/512/2738/2738730.png" width="22" height="22">
+        <span>Shakes</span>
+    </a>
+</div>
+
+{% if request.resolver_match.url_name == 'base' %}
+<section class="hero">
+    <img src="{% static 'images/UI.png' %}" alt="Freshly Baked Happiness">
+</section>
+{% endif %}
+
+
+ {% if request.resolver_match.url_name == 'base' %}
+<section class="best-sellers">
+    <div class="section-title">
+        <h2>Our Best Sellers</h2>
+        <p>Freshly baked favorites loved by everyone</p>
+    </div>
+    <div class="products-container">
+        {% for item in best_sellers %}
+        <div class="product-card">
+            <a href="{% url 'fil' item.id %}" style="text-decoration:none; color:inherit;">
+                <img src="{{ item.Image.url }}" alt="{{ item.Items }}">
+                <h3>{{ item.Items }}</h3>
+                <p class="price">₹{{ item.Price }}</p>
+            </a>
+            <form method="POST" action="/add-to-cart/{{ item.id }}/">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if request.resolver_match.url_name == 'base' %}
+<section class="best-sellers">
+    <div class="section-title">
+        <h2>Most Loved Treats</h2>
+        <p>Hand-picked favorites by our customers</p>
+    </div>
+    <div class="products-container">
+        {% for item in most_loved %}
+        <div class="product-card">
+            <a href="{% url 'fil' item.id %}" style="text-decoration:none; color:inherit;">
+                <img src="{{ item.Image.url }}" alt="{{ item.Items }}">
+                <h3>{{ item.Items }}</h3>
+                <p class="price">₹{{ item.Price }}</p>
+            </a>
+            <form method="POST" action="/add-to-cart/{{ item.id }}/">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+
+
+<!-- {% block content %}
+{% endblock content %} -->
+
+<footer style="font-family: Arial, sans-serif;">
+
+  <div style="background:#c2185b; display:flex; flex-wrap:wrap; justify-content:space-around; align-items:center; padding:18px 40px; gap:20px;">
+    
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/delivery--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Excellence Delivered</strong>
+        <span style="font-size:12px;">Trusted since 2023</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/speech-bubble--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Two Million +</strong>
+        <span style="font-size:12px;">Happy Active Customers</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/star--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Your Satisfaction</strong>
+        <span style="font-size:12px;">is our No.1 Priority</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; color:white;">
+      <img src="https://img.icons8.com/ios/50/ffffff/box--v1.png" width="40" height="40">
+      <div>
+        <strong style="font-size:15px; display:block;">Top Selling Products</strong>
+        <span style="font-size:12px;">10,000 +</span>
+      </div>
+    </div>
+
+  </div>
+
+ 
+  <div style="background:#fffff0; display:flex; flex-wrap:wrap; justify-content:space-between; padding:40px 60px; gap:30px;">
+
+    <div>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">ABOUT</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'about' %}" style="color:#555; text-decoration:none; font-size:14px;">About Us</a></li>
+        <li><a href="{% url 'reviews' %}" style="color:#555; text-decoration:none; font-size:14px;">Reviews</a></li>
+        <li><a href="{% url 'contact' %}" style="color:#555; text-decoration:none; font-size:14px;">Contact</a></li>
+        <li><a href="{% url 'careers' %}" style="color:#555; text-decoration:none; font-size:14px;">Careers</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">CUSTOMER SERVICES</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'customize_cake' %}" style="color:#555; text-decoration:none; font-size:14px;">Customize A Cake</a></li>
+        <li><a href="{% url 'custom_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Custom Gifts</a></li>
+        <li><a href="{% url 'corporate_orders' %}" style="color:#555; text-decoration:none; font-size:14px;">Corporate Orders</a></li>
+        <li><a href="{% url 'support' %}" style="color:#555; text-decoration:none; font-size:14px;">Support</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">HELP</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'faqs' %}" style="color:#555; text-decoration:none; font-size:14px;">FAQs</a></li>
+        <li><a href="{% url 'shipping_delivery' %}" style="color:#555; text-decoration:none; font-size:14px;">Shipping & Delivery</a></li>
+        <li><a href="{% url 'return_policy' %}" style="color:#555; text-decoration:none; font-size:14px;">Return Policy</a></li>
+        <li><a href="{% url 'privacy_policy' %}" style="color:#555; text-decoration:none; font-size:14px;">Privacy Policy</a></li>
+        <li><a href="{% url 'terms_condition' %}" style="color:#555; text-decoration:none; font-size:14px;">Terms and Condition</a></li>
+        <li><a href="{% url 'blog' %}" style="color:#555; text-decoration:none; font-size:14px;">Blog</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">EVENTS</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'gifts_to_mother' %}" style="color:#555; text-decoration:none; font-size:14px;">Gifts To Mother</a></li>
+        <li><a href="{% url 'birthday_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Birthday Cakes</a></li>
+        <li><a href="{% url 'anniversary_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Anniversary Cakes</a></li>
+        <li><a href="{% url 'first_anniversary_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">1st Anniversary Gifts</a></li>
+        <li><a href="{% url 'twentyfive_anniversary_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">25th Anniversary Gifts</a></li>
+        <li><a href="{% url 'baby_boy_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Baby Boy Cakes</a></li>
+        <li><a href="{% url 'baby_girl_cakes' %}" style="color:#555; text-decoration:none; font-size:14px;">Baby Girl Cakes</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 style="color:#333; font-size:14px; font-weight:700; margin-bottom:15px; letter-spacing:1px;">OCCASIONS</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2.2;">
+        <li><a href="{% url 'mothers_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Mothers Day Gifts</a></li>
+        <li><a href="{% url 'parents_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Parents Day Gifts</a></li>
+        <li><a href="{% url 'friendship_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Friendship Day Gifts</a></li>
+        <li><a href="{% url 'rakhi_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Rakhi Gifts</a></li>
+        <li><a href="{% url 'christmas_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Christmas Gifts</a></li>
+        <li><a href="{% url 'new_year_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">New Year Gifts</a></li>
+        <li><a href="{% url 'valentines_day_gifts' %}" style="color:#555; text-decoration:none; font-size:14px;">Valentines Day Gifts</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+ 
+  <div style="background:#fffff0; border-top:1px solid #ddd; padding:20px 60px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:15px;">
+    
+    <p style="margin:0; font-size:13px; color:#555;">Copyright © 2026 NIKITHA ENTERPRISES PRIVATE LIMITED – All Rights Reserved</p>
+    
+    <div style="display:flex; gap:8px; align-items:center;">
+      <img src="https://img.icons8.com/color/48/mastercard.png" width="38">
+      <img src="https://img.icons8.com/color/48/visa.png" width="38">
+      <img src="https://img.icons8.com/color/48/amex.png" width="38">
+      <img src="https://img.icons8.com/color/48/discover.png" width="38">
+      <img src="https://img.icons8.com/color/48/paypal.png" width="38">
+    </div>
+
+    <div style="display:flex; gap:18px;">
+      <a href="https://www.facebook.com/" style="color:#555; font-size:20px;"><i class="bi bi-facebook"></i></a>
+      <a href="https://www.instagram.com/" style="color:#555; font-size:20px;"><i class="bi bi-instagram"></i></a>
+      <a href="https://www.youtube.com/" style="color:#555; font-size:20px;"><i class="bi bi-youtube"></i></a>
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+</html>
+
