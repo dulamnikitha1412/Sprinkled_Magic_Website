@@ -168,8 +168,7 @@ python-dotenv==1.2.2
 python-json-logger==4.1.0
 pytz==2026.2
 pyunormalize==17.0.0
-pywin32==312
-pywinpty==3.0.5
+
 PyYAML==6.0.3
 pyzmq==27.1.0
 qtconsole==5.7.2
