@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-w=)o8ysh+qy0b%po%7b1(88mno+g8x5j*d3!^p-44$_h%qxnuw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [ "sprinkled-magic-website.onrender.com",
+    "localhost",
+    "127.0.0.1",]
 
 
 # Application definition
