@@ -9,20 +9,8 @@ body{
     overflow-x:hidden;
 }
 
-img{
-    max-width:100%;
-    height:auto;
-}
-
-.container{
-    width:100%;
-    max-width:1200px;
-    margin:auto;
-    padding:0 15px;
-}
-
 /* Mobile Responsive */
-@media screen and (max-width:768px){
+@media screen and (max-width: 768px){
 
     .container{
         width:100%;
@@ -48,8 +36,7 @@ img{
         width:100%;
     }
 
-    input,
-    button{
+    input, button{
         width:100%;
     }
 }
