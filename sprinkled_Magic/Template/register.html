@@ -182,28 +182,26 @@
             font-size: 13px;
             margin-top: 14px;
         }
- 
-       @media screen and (max-width:768px){
 
-        body{
-            min-height:100vh;
-            padding:20px;
-            justify-content:center;
-            align-items:center;
+        @media (max-width:768px){
 
-            background-size:cover;
-            background-position:center center;
-            background-repeat:no-repeat;
+            body{
+                padding:20px;
+                justify-content:center;
+
+                background-image:url("{% static 'images/reg-mobile.png' %}");
+                background-size:cover;
+                background-position:center;
+                background-repeat:no-repeat;
+            }
+
+            .login-box,
+            .register-box{
+                width:95%;
+                max-width:360px;
+                margin:0;
+            }
         }
-
-        .login-box,
-        .register-box{
-            width:95%;
-            max-width:360px;
-            padding:28px 22px;
-            margin:0;
-        }
-    }
     </style>
 </head>
 <body>
