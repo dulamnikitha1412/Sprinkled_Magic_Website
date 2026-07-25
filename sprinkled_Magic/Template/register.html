@@ -18,16 +18,16 @@
         }
  
         body {
-            height: 100vh;
-            padding: 50px 70px;
-            background-image: url("{% static 'images/reg.png' %}");
-            background-size: 100% 100%;
-            background-position: center center;
-            background-repeat: no-repeat;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            overflow: hidden;
+            min-height:100vh;
+            padding:50px 70px;
+            background-image:url("{% static 'images/reg.png' %}");
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+
+            display:flex;
+            justify-content:flex-end;
+            align-items:center;
         }
  
         .register-box {
@@ -183,24 +183,57 @@
             margin-top: 14px;
         }
  
-        @media (max-width: 768px) {
-            body {
-                justify-content: center;
-                padding: 20px;
+        @media screen and (max-width:768px){
+
+            body{
+                padding:20px;
+                justify-content:center;
+                align-items:center;
+                background-size:cover;
+                background-position:center;
+                min-width:100%;
+                overflow-x:hidden;
             }
- 
-            .register-box {
-                width: 100%;
-                margin-right: 0;
-                padding: 36px 26px 32px;
+
+            .register-box,
+            .login-box{
+                width:100%;
+                max-width:420px;
+                margin:0;
+                padding:30px 20px;
+                border-radius:18px;
+            }
+
+            .logo-icon{
+                width:60px;
+                height:60px;
+                font-size:24px;
+            }
+
+            .title{
+                font-size:22px;
+            }
+
+            .input-box input{
+                height:50px;
+                font-size:14px;
+            }
+
+            .register-btn,
+            .login-btn{
+                height:50px;
+                font-size:15px;
+            }
+
+            .register-text,
+            .login-text{
+                font-size:13px;
+            }
+
+            .line hr{
+                width:45px;
             }
         }
-        
-          @media (max-width:768px) {
-        body {
-            min-width:1200px;
-        }
-    }
     </style>
 </head>
 <body>
